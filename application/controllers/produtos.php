@@ -14,13 +14,35 @@ class Produtos extends CI_Controller{
         redirect($this->classname . "/page");
     }
 
+    public function create(){
+        $this->load->helper("form");
+        $this->load->library("form_validation");
+        $this->load->model("categoria");
+        $data["title"] = ucfirst($this->classname);
+        $data['message'] = "Produto criado com sucesso.";
+        $data['categorias'] = $this->categoria->findAll();
+        $this->load->view("templates/cabecalho", $data);
+        
+        $messages = array("required" => "Campo (%s) é de preenchimento obrigatório");
+        $this->form_validation->set_rules('nome', 'Nome', 'required', $messages);
+        $this->form_validation->set_rules('preco', 'Preço', 'required', $messages);
+        
+        if ($this->form_validation->run() <> FALSE)
+        {
+            $this->load->view("mensagens/success");
+        }
+
+        $this->load->view($this->classname . "/create");
+        $this->load->view("templates/rodape");
+    }
+
     public function page($page = 0){
         $limit = 10;
         $data["paginacao"] = $this->pageConfig($limit);
         $data["title"] = ucfirst($this->classname);
         $data[$this->classname] = $this->produto->page($limit, $page);
         $this->load->view("templates/cabecalho", $data);
-        $this->load->view($this->classname);
+        $this->load->view($this->classname . "/page");
         $this->load->view("templates/rodape");
     }
 
@@ -46,6 +68,19 @@ class Produtos extends CI_Controller{
         $config['per_page'] = $limit;
         $this->pagination->initialize($config);
         return $this->pagination->create_links();
+    }
+
+    public function update($id = NULL){
+        $data['title'] = "Atualizar produto";
+        $data['produto'] = $this->produto->find($id);
+        $this->load->view("templates/cabecalho", $data);
+        $this->load->view($this->classname . "/update");
+        $this->load->view("templates/rodape");
+    }
+
+    public function delete($id = NULL){
+        $this->produto->delete($id);
+        $this->index();
     }
 
 }

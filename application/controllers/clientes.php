@@ -19,7 +19,7 @@ class Clientes extends CI_Controller{
         $data["title"] = ucfirst($this->classname);
         $data[$this->classname] = $this->cliente->page($limit, $page);
         $this->load->view("templates/cabecalho", $data);
-        $this->load->view($this->classname);
+        $this->load->view($this->classname . "/page");
         $this->load->view("templates/rodape");
     }
 

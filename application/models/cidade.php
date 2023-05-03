@@ -26,4 +26,10 @@ class Cidade extends CI_Model{
     public function count(){
         return count($this->findAll());
      }
+
+     public function delete($id){
+        $this->db->where(array("id" => $id));
+        $query = $this->db->delete("cidade");
+        //return $query->row_array();
+    }
 }

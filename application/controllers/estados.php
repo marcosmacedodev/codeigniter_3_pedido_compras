@@ -19,7 +19,7 @@ class Estados extends CI_Controller{
         $data["title"] = ucfirst($this->classname);
         $data[$this->classname] = $this->estado->page($limit, $page);
         $this->load->view("templates/cabecalho", $data);
-        $this->load->view($this->classname);
+        $this->load->view($this->classname . "/page");
         $this->load->view("templates/rodape");
     }
 
@@ -45,5 +45,18 @@ class Estados extends CI_Controller{
         $config['per_page'] = $limit;
         $this->pagination->initialize($config);
         return $this->pagination->create_links();
+    }
+
+    public function update($id = NULL){
+        $data['title'] = "Atualizar estado";
+        $data['estado'] = $this->estado->find($id);
+        $this->load->view("templates/cabecalho", $data);
+        $this->load->view($this->classname . "/update");
+        $this->load->view("templates/rodape");
+    }
+
+    public function delete($id = NULL){
+        $this->estado->delete($id);
+        $this->index();
     }
 }

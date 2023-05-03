@@ -26,5 +26,11 @@ class Produto extends CI_Model{
     public function count(){
         return count($this->findAll());
      }
+
+     public function delete($id){
+        $this->db->where(array("id" => $id));
+        $query = $this->db->delete("produto");
+        //return $query->row_array();
+    }
     
 }

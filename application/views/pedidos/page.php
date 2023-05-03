@@ -16,7 +16,7 @@
     <?php foreach($pedidos as $pedido){ ?>
     <tr>
         <td><?php echo $pedido['id']; ?></td>
-        <td><?php echo $pedido['instante']; ?></td>
+        <td><?php echo date_format(date_create($pedido['instante']), "d/m/Y H:i:s"); ?></td>
         <td><?php echo $pedido['cliente_id']; ?></td>
         <td><?php echo $pedido['endereco_de_entrega_id']; ?></td>
     </tr>

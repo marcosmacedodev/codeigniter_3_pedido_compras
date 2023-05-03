@@ -15,6 +15,7 @@
     <tr>
         <td><?php echo $estado['id']; ?></td>
         <td><?php echo $estado['nome']; ?></td>
+        <td><a href="<?php echo site_url('estados/delete/' . $estado['id']) ?>">Excluir</a> | <a href="<?php echo site_url('estados/update/' . $estado['id']) ?>">Atualizar</a></td>
     </tr>
     <?php } ?>
 

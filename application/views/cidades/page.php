@@ -17,6 +17,7 @@
         <td><?php echo $cidade['id']; ?></td>
         <td><?php echo $cidade['nome']; ?></td>
         <td><?php echo $cidade['estado_id']; ?></td>
+        <td><a href="<?php echo site_url('cidades/delete/' . $cidade['id']) ?>">Excluir</a> | <a href="<?php echo site_url('cidades/update/' . $cidade['id']) ?>">Atualizar</a></td>
     </tr>
     <?php } ?>
 

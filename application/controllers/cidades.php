@@ -19,7 +19,7 @@ class Cidades extends CI_Controller{
         $data["title"] = ucfirst($this->classname);
         $data[$this->classname] = $this->cidade->page($limit, $page);
         $this->load->view("templates/cabecalho", $data);
-        $this->load->view($this->classname);
+        $this->load->view($this->classname . "/page");
         $this->load->view("templates/rodape");
     }
 
@@ -45,5 +45,21 @@ class Cidades extends CI_Controller{
         $config['per_page'] = $limit;
         $this->pagination->initialize($config);
         return $this->pagination->create_links();
+    }
+
+    public function update($id = NULL){
+        $data['title'] = "Atualizar cidade";
+        $data['cidade'] = $this->cidade->find($id);
+        $this->load->view("templates/cabecalho", $data);
+        $this->load->view($this->classname . "/update");
+        $this->load->view("templates/rodape");
+    }
+
+    public function delete($id = NULL){
+        if ($id <> NULL)
+        {
+            $this->cidade->delete($id);
+            $this->index();
+        }
     }
 }
